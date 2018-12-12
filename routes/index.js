@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const multiparty=require("connect-multiparty");
+const connectmultiparty=multiparty();
 
 const userController=require("../controller/userController");
 const manage=require('../controller/manage');
@@ -7,14 +9,25 @@ const RoomListController=require("../controller/RoomListController");
 const apartmentController=require("../controller/apartmentController");
 const staffController=require("../controller/staffController");
 const orderController=require("../controller/orderController");
+const roomController=require('../controller/roomController');
 /* GET home page. */
+router.get('/login.html',);
 router.get('/', function(req, res, next) {
 
     res.send(`<script>
   window.location.href="index.html"
 </script>`);
-
 });
+// router.all('/*',function (req,res,next) {
+//     if(!req.session.user){
+//         res.send(`<script>
+//   window.location.href="index.html"
+// </script>`);
+//     }else {
+//         next();
+//     }
+//
+// })
 router.all('/consume/*.do',function (req,res,next) {
     let url=req.url;
     url=url.substr(9);
@@ -76,4 +89,23 @@ router.get('/room/roomDelete.do',RoomListController.roomDelete);
 router.get('/room/selectRoom.do',RoomListController.selectRoom);
 //新增
 router.get('/room/roomNew.do',RoomListController.roomNew);
+
+//============查询所有房型=============================
+router.get("/room/roomTypeCastle.do",roomController.queryRoomTypeCastle);
+router.get("/room/roomTypeStables.do",roomController.queryRoomTypeStables);
+
+//=============删除数据====================================
+router.get("/room/deleteRoomCastle.do",roomController.deleteRoomCastle);
+
+//=============增加房型===================================
+router.get("/room/addRoomCastle.do",roomController.addRoomCastle);
+router.all("/upimg/",connectmultiparty,function (req,res) {//上传照片
+    console.log("888888888888");
+    console.log(req.body);
+    res.send("ok");
+});
+
+
+//==============修改房型=========================================
+router.get("/room/updateRoomCastle.do",roomController.updateRoomCastle);
 module.exports = router;
