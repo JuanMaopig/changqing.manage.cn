@@ -1,4 +1,4 @@
-const staffDao=require("../dao/staffDao")
+const staffDao=require("../dao/staffDao");
 
 const staffController={
     async queryStaff(req,resp){
@@ -7,7 +7,7 @@ const staffController={
     },
     async deleteStaff(req,resp){
         let myId=req.query.myId;
-        console.log(myId);
+        console.log("新输出的值咯=="+myId);
         let data=await staffDao.delete([myId]);
         resp.send(data)
     },
@@ -23,8 +23,8 @@ const staffController={
     },
     async editStaff(req,resp){
         let myEditData=JSON.parse(req.query.editData);
-        // console.log(typeof myEditData.id);
-        let data=await staffDao.edit([myEditData.name,myEditData.sex,myEditData.depart_,myEditData.tel,myEditData.position,myEditData.hotel,myEditData.id]);
+        console.log("=====++++++++"+myEditData);
+        let data=await staffDao.edit([myEditData.name,myEditData.sex,myEditData.depart,myEditData.tel,myEditData.position,myEditData.hotel,myEditData.id]);
         resp.send(data);
     },
     //查询

@@ -47,7 +47,7 @@ app.use(express.static(__dirname));
 app.use(express.static(__dirname+"/public"));//__dirname指向当前文件根目录
 app.use(express.static(__dirname+"/public/html"));
 
-app.set("port",8090);//设置端口
-app.listen(8090,()=>{
+app.set("port",8888);//设置端口
+app.listen(8888,()=>{
     console.log("服务器已启动"+app.get("port"));
 });

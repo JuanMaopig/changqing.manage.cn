@@ -18,8 +18,8 @@ const apartmentController={
         console.log(name+region);
         let myDate=new Date();
         let localTime=myDate.toLocaleDateString();
-        let AddApart=await apartmentDao.AddApart([name,region,"张芸铭"]);
-        // c_date:localTime,
+        let AddApart=await apartmentDao.AddApart([name,region,"张芸铭",localTime]);
+        // createTime:localTime,
         resp.send(AddApart);
     },
     async deleteApart(req,resp){

@@ -1,13 +1,15 @@
-/**
- * Created by Administrator on 2018/11/7 0007.
- */
+// const dbpool=require("../config/dbpoolConfig");//引入数据库连接池
 
-//引用orderDao
-const orderDao=require("../dao/orderDao");
+const orderModule=require("../dao/orderDao");//引入Dao层
+
+const methods=require("../config/methods");//引入方法
+
 const orderController={
+    //使用promise
+    //查询订单信息
     getorder(req,res){
         /*[req.query.order_hao,req.query.room_type_name,req.query.room_number,req.query.guest_tel,req.query.guestname,req.query.order_state,req.query.order_time]*/
-        orderDao.daoSelectOrder().then(function (data) {//data查询回来的结果
+        orderModule.daoSelectOrder().then(function (data) {//data查询回来的结果
             console.log("========getorderController========");
             // console.log(data[0].id);
             res.send(data);
@@ -18,9 +20,10 @@ const orderController={
     },
     //修改订单信息
     editorder(req,res){
-        // console.log(editData);req.query.
+        console.log("=======editorder======");
         let temp=req.query;
-        orderDao.daoUpdateOrder([temp.room_type_name,temp.room_number,temp.guestname,temp.guest_tel,temp.order_state,temp.order_id]).
+        // console.log(temp.order_state);
+        orderModule.daoUpdateOrder([temp.room_type_name,temp.room_number,temp.guest_name,temp.guest_tel,temp.order_state,temp.order_id]).
         then(function (data) {
             console.log("========editorderController========");
             // console.log(data[0].id);
@@ -33,7 +36,7 @@ const orderController={
     deleteorder(req,res){
         // console.log("ddddddddddddddddddddddddddddddddddddd")
         // console.log(req.query);
-        orderDao.daoDeleteOrder([req.query.order_id]).
+        orderModule.daoDeleteOrder([req.query.order_id]).
         then(function (data) {
             console.log("========deleteorderController========");
             // console.log(data[0].id);
@@ -43,13 +46,18 @@ const orderController={
             res.send(err);
         })
     },
-    addorder(req,res){
+    addorder(req,res){//增加订单
         let temp=req.query;
-        orderDao.daoAddOrder([temp.order_hao,temp.order_state,
+        temp.order_time=methods.getOrderTime();//获取当前下单时间
+        temp.order_state="已完成";//默认为已完成
+        temp.order_hao=methods.getOrderHao();//获取订单号
+        console.log("=========addorder==========");
+        console.log(temp);
+        orderModule.daoAddOrder([temp.order_hao,temp.order_state,
             temp.order_time,temp.in_date,temp.out_date,temp.room_number,temp.user_id,temp.room_type_name,
-            temp.room_consume_type_id,temp.guestname,temp.guest_tel,temp.guest_email,temp.adultNum,temp.childNum,
-            temp.all_money,temp.pay,temp.tax,temp.server_money,temp.contact_name,temp.contact_phone,
-            temp.subscription,temp.sex,temp.specials,temp.hotel]).
+            temp.room_consume_id,temp.guest_name,temp.guest_tel,temp.guest_email,temp.adultNum,temp.childNum,
+            temp.order_price,temp.pay,temp.tax,temp.server_money,temp.contact_name,temp.contact_phone,
+            temp.subscription,temp.sex,temp.specials,temp.hotel,temp.hotel_id,temp.room_type_id]).
         then(function (data) {
             console.log("========addorderController========");
             // console.log(data[0].id);
@@ -59,28 +67,13 @@ const orderController={
             res.send(err);
         })
     },
-    async queryOrder(req,res){
-       let orderID=req.query.orderID;
-       try{
-           let active = orderDao.asyncQueryAllDevice();
-           let hotel = orderDao.queryAllHotelName();
-           let order = await orderDao.queryOrder(orderID);
-           let active_consume = await orderDao.asyncQueryActiveConsume(order.room_consume_id);
-           let hotel_id = orderDao.getHotelID(order.room_type_id);
-           order.active_consume=[];
-           active = await active;
-           for (let value of active_consume){
-               order.active_consume.push(active[value]);
-           }
-           hotel = await hotel;
-           hotel_id = await hotel_id;
-           order.hotel_name=hotel[hotel_id];
-           res.render("user1/order-detail",order);
-       }catch (e) {
-           console.log(e);
-           res.send({status:"err",state:404,msg:"服务器数据异常，请稍微再试"})
-       }
-
+    showprice(req,res){
+        orderModule.daoShowPrice([]).then(function (data) {
+            console.log("=========showpriceController=====");
+            res.send(data);
+        }).catch(function (err) {
+            res.send(err)
+        })
     }
 
 };

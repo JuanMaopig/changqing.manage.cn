@@ -148,6 +148,9 @@ const User={
         let data=await userDao.search([name]);
         // console.log(await userDao.search([name]));
         resp.send(data);
+    },
+    async login(req,res){
+
     }
 }
 module.exports=User;

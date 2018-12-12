@@ -44,9 +44,7 @@ router.all('/consume/*.do',function (req,res,next) {
 router.get("/order/getorder.do",orderController.getorder);
 router.get("/order/editorder.do",orderController.editorder);
 router.get("/order/deleteorder.do",orderController.deleteorder);
-router.get("/order/addorder.do",function () {
-    console.log(req.query.order_time);
-});
+router.get("/order/addorder.do",orderController.addorder);
 //后台人员管理列表
 router.get('/staff/*.do',function (req,resp) {
     let url=req.url;
@@ -79,9 +77,9 @@ router.get('/department/*.do',function (req,res) {
     console.log(url);
     apartmentController[url](req,res);
 });
-//房间列表的页面数据查询
+// 房间列表的页面数据查询
 router.get('/room/roomInformation.do',RoomListController.roomInformation);
-//房间列表的页面弹框修改
+// 房间列表的页面弹框修改
 router.get('/room/roomModify.do',RoomListController.roomModify);
 //房间列表的页面数据删除
 router.get('/room/roomDelete.do',RoomListController.roomDelete);

@@ -33,8 +33,9 @@ const apartmentDao={
 
     },
     delApart(value){
-        // console.log(value);
+        console.log(value);
         return new Promise((resolve, reject) => {
+
             let sql="delete from depart where depart_id=?";
             amDb.connect(sql,value,(err,data)=> {
                 if (err){

@@ -41,6 +41,12 @@ const userDao={
                 }
             })
         })
+    },
+    login(){
+        return new Promise(resolve => {
+            let sql="";
+
+        })
     }
 };
 module.exports=userDao;
