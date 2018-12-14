@@ -1,3 +1,9 @@
+<<<<<<< HEAD
 node_modules/ 
 
 .idea
+=======
+node_modules/
+package-lock.json
+.idea
+>>>>>>> b37da8098964cdc75c885e3d0625a840b55a9b62
