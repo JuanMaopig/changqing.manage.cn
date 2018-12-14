@@ -110,7 +110,7 @@ const manageDao={
     },
     addConsumeActive(consume_id,active_id){
         return new Promise((resolve, reject) => {
-            let sql= "insert into (room_consume_id,active_consume_id)" +
+            let sql= "insert into room_active_consume(room_consume_id,active_consume_id)" +
                 "values (?,?)";
             con.connect(sql,[consume_id,active_id],(err,result)=>{
                 if(err){

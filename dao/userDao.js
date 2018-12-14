@@ -1,9 +1,9 @@
-const userDb=require("../config/dbConfig");
+const con=require("../config/dbConfig");
 const userDao={
     query(){
         return new Promise((resolve, reject) => {
             let sql="select * from user";
-            userDb.connect(sql,[],(err,data)=>{
+            con.connect(sql,[],(err,data)=>{
                 if (err){
                     reject({state:"err",err})
                 } else{
@@ -17,7 +17,7 @@ const userDao={
         return new Promise((resolve, reject) => {
             // console.log("进入Dao层");
             let sql="delete from user where user_id=?";
-            userDb.connect(sql,value,(err,data)=>{
+            con.connect(sql,value,(err,data)=>{
                 if (err){
                     reject({state:"err",err})
                 } else{
@@ -30,7 +30,7 @@ const userDao={
         console.log("进入Dao层"+value);
         return new Promise((resolve, reject) => {
             let sql="select * from user where username like \"%\"?\"%\"";
-            userDb.connect(sql,value,(err,data)=>{
+            con.connect(sql,value,(err,data)=>{
                 if (err){
                     reject({state:"err",err});
                     console.log(err);
@@ -42,10 +42,21 @@ const userDao={
             })
         })
     },
-    login(){
+    login(Params){
         return new Promise(resolve => {
-            let sql="";
-
+            let sql="select *from cq.admin where user=? and password=?";
+            con.connect(sql,[Params.user,Params.password],(err,result)=>{
+                if(err){
+                    console.log(err);
+                    resolve({status:"err",state:100,msg:"服务器错误!"});
+                }else {
+                    if(result.length==1){
+                        resolve({status:"ok",state:1,data:result[0]});
+                    }else {
+                        resolve({status:"err",state:0,msg:"账号密码错误!"});
+                    }
+                }
+            })
         })
     }
 };

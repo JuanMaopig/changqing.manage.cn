@@ -17,7 +17,9 @@ const methods={
         return currentdate;
     },
     getOrderHao(){
-
+        let myDate = new Date();
+        return myDate.getFullYear().toString()+(myDate.getMonth()+1).toString().padStart(2,"0")+myDate.getDate().toString().padStart(2,"0")+"" +
+            ""+myDate.getHours().toString()+myDate.getMinutes()+myDate.getSeconds()+myDate.getMilliseconds();
     }
 };
 module.exports=methods;

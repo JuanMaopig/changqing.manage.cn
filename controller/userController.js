@@ -150,7 +150,23 @@ const User={
         resp.send(data);
     },
     async login(req,res){
-
+        let user = req.body.user;
+        let password = req.body.password;
+        let result = await userDao.login({user,password});
+        if(result.state===1){
+            req.session.user=result.data;
+            console.log("登录成功")
+            res.send({status:"ok",state:1});
+        }
+        if(result.state===0){
+            res.send({status:"err",state:0});
+        }
+        if(result.state===100){
+            res.send({status:"err",state:100});
+        }
+    },
+    getUser(req,res){
+        res.send(req.session.user.name);
     }
 }
 module.exports=User;

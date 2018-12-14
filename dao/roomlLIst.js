@@ -6,7 +6,7 @@ const roomlLIstModel={
 
     RoomInform(params){
         return new Promise(function(resolve,reject) {
-            let sql="select * from roomhao";
+            let sql="select order_id,door_hao,room_type_id,room_state,isactive from roomhao";
             con.connect(sql,params,function (err,data) {
                 if(!err ){
                     resolve(data);

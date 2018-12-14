@@ -1,6 +1,6 @@
-const apartmentDao=require("../dao/apartmentDao");
+const apartmentDao=require("../dao/departmentDao");
 
-const apartmentController={
+const departmentController={
 
     async operateApart(req,resp){
         console.log("进入控制层");
@@ -36,4 +36,4 @@ const apartmentController={
     }
 
 };
-module.exports=apartmentController;
+module.exports=departmentController;

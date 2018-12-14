@@ -93,11 +93,12 @@ const manage={
     },
     //更新套餐
     async editConsume(req,res){
+        console.log("edit")
         console.log(req.body);
         let consume=req.body.consume;
         let consume_active=[];
-        for (let value of consume.active_id){
-            consume_active.push(manageDao.addConsumeActive(consume.room_consume_id,value))
+        for (let value of consume.active){
+            consume_active.push(manageDao.addConsumeActive(consume.room_consume_id,parseInt(value)))
         }
         let result = await manageDao.editConsume(consume);
         consume_active = await Promise.all(consume_active);

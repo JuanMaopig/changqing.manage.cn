@@ -52,12 +52,11 @@ const orderController={
         temp.order_state="已完成";//默认为已完成
         temp.order_hao=methods.getOrderHao();//获取订单号
         console.log("=========addorder==========");
+        console.log(typeof temp.in_date)
+        temp.in_date=temp.in_date.substr(0,temp.in_date.indexOf('T'));
+        temp.out_date=temp.out_date.substr(0,temp.out_date.indexOf('T'));
         console.log(temp);
-        orderModule.daoAddOrder([temp.order_hao,temp.order_state,
-            temp.order_time,temp.in_date,temp.out_date,temp.room_number,temp.user_id,temp.room_type_name,
-            temp.room_consume_id,temp.guest_name,temp.guest_tel,temp.guest_email,temp.adultNum,temp.childNum,
-            temp.order_price,temp.pay,temp.tax,temp.server_money,temp.contact_name,temp.contact_phone,
-            temp.subscription,temp.sex,temp.specials,temp.hotel,temp.hotel_id,temp.room_type_id]).
+        orderModule.daoAddOrder(temp).
         then(function (data) {
             console.log("========addorderController========");
             // console.log(data[0].id);

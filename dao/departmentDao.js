@@ -1,7 +1,7 @@
 //数据连接
 
 const amDb=require('../config/dbConfig');
-const apartmentDao={
+const departmentDao={
     handleApart(){
         return new Promise((resolve, reject) => {
             let sql="select * from depart";
@@ -62,4 +62,4 @@ const apartmentDao={
     }
 };
 
-module.exports=apartmentDao;
+module.exports=departmentDao;

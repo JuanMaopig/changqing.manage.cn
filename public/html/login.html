@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>login</title>
+</head>
+<style>
+  body{
+    width: 100%;
+    height: auto;
+    background-color: #404a50;
+  }
+  img{
+    width: 30px;
+    height: 30px;
+    position: relative;
+    top: 5px;
+    left: 0;
+
+  }
+  .icon1{
+    width: 32px;
+    height: 32px;
+
+  }
+  .input1{
+    left: -3px;
+  }
+  .login{
+    padding:50px 50px 50px 50px;
+    margin:0 auto;
+    width: 300px;
+    height: auto;
+    margin-top: 100px;
+    background-color: #404a50;
+    border-radius: 9px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)
+  }
+  button{
+    width: 120px;
+    height: 35px;
+    border: 1px rgba(220, 220, 220, 0.95) solid;
+    border-radius: 50px;
+    color: #d3d3d3;
+    font-size: 16px;
+    background-color:#404a50;
+    margin-top: 30px;
+    margin-left: 180px;
+    outline: none;
+    cursor: pointer;
+    /*box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2)*/
+
+  }
+  h3{
+    color: #f4f4f4;
+    font-weight: lighter;
+
+  }
+  span{
+    margin-left: 30%;
+    border-bottom: 1px rgba(238, 238, 238, 0.78) solid;
+    cursor: pointer;
+    color: rgba(227, 227, 227, 0.83);
+
+  }
+  input{
+    width: 200px;
+    height: 30px;
+    border: none;
+    background:none;
+    outline: none;
+    position: relative;
+    font-size: 16px;
+    top: -5px;
+    left: 0;
+  }
+  div{
+    Max-width: 100%;
+    height: auto;
+    border: 1px rgba(0, 0, 0, 0.6) solid;
+    border-radius: 5px;
+    margin-top: 30px;
+  }
+  input::-webkit-input-placeholder {
+    /* placeholder颜色  */
+    color: #cdd5e0;
+    /* placeholder字体大小  */
+    font-size: 16px;
+    /* placeholder位置  */
+    text-align: left;
+  }
+  i{
+    font-size: 40px;
+    font-family: 华文行楷;
+    color: white;
+  }
+</style>
+<body>
+<div class="login">
+
+  <!--<i>changqing</i>-->
+  <form action="">
+    <h3>账户登录</h3>
+    <div>
+      <img src="./icon/url.png" alt="" class="icon1">
+      <input type="text" class="input1" placeholder="用户名" id="user">
+    </div>
+    <div>
+      <img src="./icon/555.png" alt="">
+      <input id="password" type="password" placeholder="密码" maxlength="16">
+      <!--<img src="./icon/kanjianmima-.png" alt="">-->
+    </div>
+    <button type="button" id="login">登录</button>
+  </form>
+</div>
+<script src="../js/jquery-3.3.1.min.js"></script>
+<script src="../js/login.js"></script>
+
+</body>
+</html>

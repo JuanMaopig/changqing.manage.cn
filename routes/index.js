@@ -6,18 +6,41 @@ const connectmultiparty=multiparty();
 const userController=require("../controller/userController");
 const manage=require('../controller/manage');
 const RoomListController=require("../controller/RoomListController");
-const apartmentController=require("../controller/apartmentController");
+const apartmentController=require("../controller/departmentController");
 const staffController=require("../controller/staffController");
 const orderController=require("../controller/orderController");
 const roomController=require('../controller/roomController');
 /* GET home page. */
-router.get('/login.html',);
 router.get('/', function(req, res, next) {
-
-    res.send(`<script>
+    console.log("*******************")
+    if(req.session.user){
+        res.send(`<script>
   window.location.href="index.html"
 </script>`);
+    }else {
+        res.send(`<script>
+  window.location.href="login.html"
+</script>`);
+    }
 });
+router.all('/*.html*',function (req,res,next) {
+
+    if(req.session.user){
+        console.log("-------------")
+        next();
+    }else {
+        if(req.url=='/login.html'){
+            next();
+        }else {
+            res.send(`<script>
+  window.location.href="login.html"
+</script>`);
+        }
+
+    }
+})
+router.get('/getUser.do',userController.getUser);
+router.post('/login.do',userController.login);
 // router.all('/*',function (req,res,next) {
 //     if(!req.session.user){
 //         res.send(`<script>
@@ -28,6 +51,10 @@ router.get('/', function(req, res, next) {
 //     }
 //
 // })
+router.get('/exitUser.do',function (req,res,next) {
+   delete req.session.user;
+   res.send("ok");
+})
 router.all('/consume/*.do',function (req,res,next) {
     let url=req.url;
     url=url.substr(9);
@@ -50,7 +77,8 @@ router.get('/staff/*.do',function (req,resp) {
     let url=req.url;
     url=url.substr(7);
     url=url.substring(0,url.indexOf('.do'));
-    console.log("548978787867687");
+    console.log(url);
+    console.log(staffController)
     staffController[url](req,resp);
 });
 //用户
@@ -72,7 +100,6 @@ router.get("/user/*.do",function (req,resp) {
 router.get('/department/*.do',function (req,res) {
     let url=req.url;
     url=url.substr(12);
-    // console.log("556"
     url=url.substring(0,url.indexOf('.do'))
     console.log(url);
     apartmentController[url](req,res);
